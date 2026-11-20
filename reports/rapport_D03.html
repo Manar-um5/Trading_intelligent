@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc 3.14" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Projet B08 - Économétrie de la moyenne - D03</title>
+  <style>
+    /* Default styles provided by pandoc.
+    ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+    */
+    html {
+      color: #1a1a1a;
+      color: light-dark(#1a1a1a, #fdfdfd);
+      background-color: #fdfdfd;
+      background-color: light-dark(#fdfdfd, #1a1a1a);
+      color-scheme: light dark;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a, a:visited {
+      color: inherit;
+    }
+    img {
+      max-width: 100%;
+    }
+    svg {
+      height: auto;
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid;
+      border-color: #e6e6e6;
+      border-color: light-dark(#e6e6e6, #4c4c4c);
+      color: #606060;
+      color: light-dark(#606060, #b6b6b6);
+    }
+    code {
+      white-space: pre-wrap;
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      border: none;
+      border-top: 1px solid currentColor;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid currentColor;
+      border-bottom: 1px solid currentColor;
+    }
+    th {
+      border-top: 1px solid currentColor;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    span.smallcaps{font-variant: small-caps;}
+    em, em em em, em em em em em {
+      font-style: italic;
+    }
+    em em, em em em em {
+      font-style: normal;
+    }
+    div.columns{display: flex; gap: 1.5em;}
+    div.column{flex: auto;}
+    @media screen {
+    div.columns{gap: min(4vw, 1.5em);}
+    div.column{overflow-x: auto;}
+    }
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+    @media print {
+      html {
+        color-scheme: light only;
+      }
+      html, body, pre, code {
+        background-color: transparent;
+      }
+      body, a, a:visited, blockquote {
+        color: black;
+      }
+      pre, code {
+        padding: 0;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }  </style>
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Projet B08 - Économétrie de la moyenne - D03</h1>
+</header>
+<h1 id="projet-b08-eem-quantlab">Projet B08 — EEM QuantLab</h1>
+<h2 id="livrable-d03-économétrie-de-la-moyenne">Livrable D03 :
+Économétrie de la moyenne</h2>
+<h3 id="introduction">1. Introduction</h3>
+<p>Ce livrable porte sur la modélisation économétrique des rendements
+journaliers de l’ETF iShares MSCI Emerging Markets (EEM), avec l’ETF
+SPDR S&amp;P 500 (SPY) comme variable explicative potentielle.</p>
+<p>L’objectif est d’étudier la prévisibilité de la moyenne
+conditionnelle des rendements, de comparer plusieurs modèles
+économétriques et d’évaluer leurs performances prédictives hors
+échantillon.</p>
+<p>Quatre approches sont étudiées : un modèle naïf fondé sur la moyenne
+historique, ARIMA, SARIMA et SARIMAX.</p>
+<h3 id="présentation-et-préparation-des-données">2. Présentation et
+préparation des données</h3>
+<p>Les données financières couvrent la période du 2 janvier 2018 au 30
+octobre 2026.</p>
+<p>Les séries EEM et SPY comportent chacune 2 220 observations de prix
+ajustés.</p>
+<p>Les rendements logarithmiques journaliers sont calculés selon :</p>
+<p>r_t = 100 × ln(P_t / P_{t-1})</p>
+<p>où P_t représente le prix ajusté à la date t.</p>
+<p>Après calcul des rendements, chaque série comporte 2 219
+observations.</p>
+<h3 id="découpage-chronologique">3. Découpage chronologique</h3>
+<p>Afin d’éviter toute fuite d’information, les observations sont
+réparties chronologiquement :</p>
+<table>
+<thead>
+<tr>
+<th>Échantillon</th>
+<th>Période</th>
+<th style="text-align: right;">Observations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entraînement</td>
+<td>2018–2022</td>
+<td style="text-align: right;">1 258</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>2023–2024</td>
+<td style="text-align: right;">502</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>2025–2026</td>
+<td style="text-align: right;">459</td>
+</tr>
+</tbody>
+</table>
+<p>L’entraînement sert à estimer les modèles, la validation à les
+comparer et le test à évaluer définitivement le modèle sélectionné.</p>
+<h3 id="méthodologie-économétrique">4. Méthodologie économétrique</h3>
+<h4 id="modèle-naïf">4.1 Modèle naïf</h4>
+<p>Le modèle naïf prévoit un rendement constant égal à la moyenne
+historique estimée sur l’échantillon d’entraînement.</p>
+<p>Il constitue une référence permettant de déterminer si les modèles
+économétriques apportent une amélioration prédictive.</p>
+<h4 id="modèle-arima">4.2 Modèle ARIMA</h4>
+<p>Les modèles ARIMA(p,d,q) combinent une composante autorégressive, une
+différenciation éventuelle et une composante moyenne mobile.</p>
+<p>Plusieurs spécifications sont estimées et comparées à partir du
+critère AIC, des diagnostics des résidus et des erreurs de
+prévision.</p>
+<h4 id="modèle-sarima">4.3 Modèle SARIMA</h4>
+<p>Le modèle SARIMA étend ARIMA en introduisant une composante
+saisonnière.</p>
+<p>Une périodicité de cinq séances boursières est étudiée afin
+d’examiner l’existence d’une structure hebdomadaire.</p>
+<h4 id="modèle-sarimax">4.4 Modèle SARIMAX</h4>
+<p>Le modèle SARIMAX introduit une variable explicative externe : le
+rendement de SPY retardé d’une séance.</p>
+<p>Ce décalage permet de n’utiliser, pour chaque prévision, qu’une
+information disponible antérieurement à la date prédite.</p>
+<h3 id="critères-dévaluation">5. Critères d’évaluation</h3>
+<p>Les performances prédictives sont mesurées par :</p>
+<ul>
+<li>MAE : erreur absolue moyenne.</li>
+<li>RMSE : racine de l’erreur quadratique moyenne.</li>
+</ul>
+<p>Les modèles sont comparés sur la validation selon un protocole commun
+de prévision à un pas.</p>
+<p>Les modèles économétriques sont actualisés avec les observations
+successivement disponibles, sans réestimation de leurs paramètres à
+chaque séance.</p>
+<p>Le modèle naïf conserve la moyenne estimée sur l’entraînement.</p>
+<h3 id="résultats-des-modèles-économétriques">6. Résultats des modèles
+économétriques</h3>
+<h4 id="comparaison-des-modèles-arima">6.1 Comparaison des modèles
+ARIMA</h4>
+<p>Sept spécifications ARIMA ont été estimées.</p>
+<p>Le modèle ARIMA(2,0,2) présente le plus faible AIC parmi les modèles
+étudiés, avec une valeur de 4485,98.</p>
+<p>Le modèle ARIMA(3,0,1) obtient le meilleur RMSE lors de la
+comparaison initiale à horizon multiple : 0,9723.</p>
+<p>Ces résultats montrent que le modèle présentant le plus faible AIC
+n’est pas nécessairement celui qui produit les meilleures
+prévisions.</p>
+<h4 id="diagnostics-des-résidus">6.2 Diagnostics des résidus</h4>
+<p>Les diagnostics du modèle ARIMA(1,0,1) donnent les résultats suivants
+:</p>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th style="text-align: right;">Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ljung-Box retard 5</td>
+<td style="text-align: right;">p = 0,566488</td>
+</tr>
+<tr>
+<td>Ljung-Box retard 10</td>
+<td style="text-align: right;">p = 0,000207</td>
+</tr>
+<tr>
+<td>Ljung-Box retard 20</td>
+<td style="text-align: right;">p = 0,001109</td>
+</tr>
+<tr>
+<td>ARCH-LM</td>
+<td style="text-align: right;">Statistique = 389,2944</td>
+</tr>
+</tbody>
+</table>
+<p>Les tests de Ljung-Box révèlent une autocorrélation résiduelle
+significative aux retards 10 et 20.</p>
+<p>Le test ARCH-LM est également significatif, ce qui suggère la
+présence d’hétéroscédasticité conditionnelle.</p>
+<p>Ces résultats motivent l’étude de la volatilité dans le livrable D04.
+### 7. Comparaison des performances sur validation</p>
+<p>Les quatre modèles sont évalués sur 502 observations de validation
+couvrant la période 2023–2024.</p>
+<p>La comparaison repose sur un protocole de prévision à un pas, avec
+actualisation des observations disponibles pour les modèles
+économétriques.</p>
+<table>
+<thead>
+<tr>
+<th>Modèle</th>
+<th style="text-align: right;">MAE</th>
+<th style="text-align: right;">RMSE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Naïf</td>
+<td style="text-align: right;">0,7519</td>
+<td style="text-align: right;">0,9740</td>
+</tr>
+<tr>
+<td>SARIMAX(3,0,1) + SPY retardé</td>
+<td style="text-align: right;">0,7609</td>
+<td style="text-align: right;">0,9821</td>
+</tr>
+<tr>
+<td>SARIMA(3,0,1) × (1,0,0,5)</td>
+<td style="text-align: right;">0,7623</td>
+<td style="text-align: right;">0,9840</td>
+</tr>
+<tr>
+<td>ARIMA(3,0,1)</td>
+<td style="text-align: right;">0,7630</td>
+<td style="text-align: right;">0,9843</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="D03_comparaison_modeles.png" alt="Comparaison des modèles" />
+<figcaption aria-hidden="true">Comparaison des modèles</figcaption>
+</figure>
+<p>Le modèle naïf présente les plus faibles erreurs MAE et RMSE sur la
+période de validation.</p>
+<p>Le modèle SARIMAX obtient les meilleures performances parmi les trois
+modèles économétriques complexes, mais ne surpasse pas le modèle
+naïf.</p>
+<p>Par conséquent, le modèle naïf est retenu pour l’évaluation finale
+hors échantillon.</p>
+<h3 id="évaluation-finale-hors-échantillon-20252026">8. Évaluation
+finale hors échantillon (2025–2026)</h3>
+<h4 id="protocole-dévaluation">8.1 Protocole d’évaluation</h4>
+<p>Après comparaison des quatre modèles sur la période de validation, le
+modèle naïf a été retenu en raison de ses meilleures performances
+prédictives.</p>
+<p>La moyenne historique a ensuite été réestimée sur les données
+d’entraînement et de validation, couvrant la période 2018–2024.</p>
+<p>Les observations de test n’ont pas été utilisées pour estimer le
+modèle ou sélectionner sa spécification, afin d’éviter toute fuite
+d’information.</p>
+<h4 id="résultats-du-test-final">8.2 Résultats du test final</h4>
+<p>L’évaluation finale porte sur 459 observations journalières de l’ETF
+EEM, du 2 janvier 2025 au 30 octobre 2026.</p>
+<p>La moyenne historique estimée est de 0,001197 % par séance.</p>
+<table>
+<thead>
+<tr>
+<th>Indicateur</th>
+<th style="text-align: right;">Résultat</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nombre d’observations</td>
+<td style="text-align: right;">459</td>
+</tr>
+<tr>
+<td>Moyenne prédite</td>
+<td style="text-align: right;">0,001197 %</td>
+</tr>
+<tr>
+<td>MAE</td>
+<td style="text-align: right;">1,0075</td>
+</tr>
+<tr>
+<td>RMSE</td>
+<td style="text-align: right;">1,4311</td>
+</tr>
+</tbody>
+</table>
+<figure>
+<img src="D03_previsions_test_EEM.png"
+alt="Prévisions du modèle naïf sur le test" />
+<figcaption aria-hidden="true">Prévisions du modèle naïf sur le
+test</figcaption>
+</figure>
+<h4 id="interprétation-des-résultats">8.3 Interprétation des
+résultats</h4>
+<p>Le modèle naïf obtient un RMSE de 1,4311 sur le test, contre 0,9740
+sur la validation.</p>
+<p>Cette augmentation indique une dégradation de la précision prédictive
+sur la période finale.</p>
+<p>Elle peut notamment refléter une évolution de la dispersion des
+rendements financiers. Toutefois, une analyse complémentaire de la
+volatilité serait nécessaire pour confirmer cette hypothèse.</p>
+<p>Ces résultats soulignent les difficultés de prévision de la moyenne
+des rendements journaliers des actifs financiers.</p>
+<h3 id="discussion-des-résultats-et-limites">9. Discussion des résultats
+et limites</h3>
+<p>Les résultats obtenus montrent que les modèles économétriques
+complexes ne garantissent pas une amélioration des prévisions des
+rendements financiers.</p>
+<p>Sur la période de validation 2023-2024, le modèle naïf présente les
+meilleures performances parmi les quatre approches étudiées.</p>
+<p>Le modèle SARIMAX, intégrant le rendement retardé de SPY, obtient les
+meilleures performances parmi les modèles économétriques complexes, mais
+reste moins performant que le modèle naïf.</p>
+<p>Plusieurs limites doivent être soulignées :</p>
+<ul>
+<li>Les résultats dépendent des périodes étudiées.</li>
+<li>La périodicité saisonnière de cinq séances reste une hypothèse de
+modélisation.</li>
+<li>La variable SPY retardée ne permet pas d’améliorer les performances
+dans cette expérience.</li>
+<li>Les performances de validation ne garantissent pas les mêmes
+performances sur d’autres périodes.</li>
+<li>La comparaison des erreurs ne suffit pas à expliquer les changements
+de volatilité.</li>
+</ul>
+<h3 id="conclusion-générale-et-transition-vers-d04">10. Conclusion
+générale et transition vers D04</h3>
+<p>Ce livrable D03 a permis de développer et d’évaluer plusieurs modèles
+de prévision de la moyenne conditionnelle des rendements journaliers de
+l’ETF EEM.</p>
+<p>Les modèles naïf, ARIMA, SARIMA et SARIMAX ont été comparés sur une
+période de validation commune.</p>
+<p>Le modèle naïf a obtenu les meilleurs résultats avec un MAE de 0,7519
+et un RMSE de 0,9740.</p>
+<p>Après réestimation sur les données d’entraînement et de validation,
+son évaluation finale sur 459 observations de test a produit un MAE de
+1,0075 et un RMSE de 1,4311.</p>
+<p>Les diagnostics ARCH-LM réalisés sur ARIMA(1,0,1) suggèrent la
+présence d’hétéroscédasticité conditionnelle.</p>
+<p>Ces résultats motivent le passage au livrable D04, consacré à la
+modélisation de la volatilité conditionnelle à travers les modèles
+ARCH/GARCH et à l’évaluation du risque financier par les mesures Value
+at Risk (VaR) et Expected Shortfall (ES).</p>
+</body>
+</html>

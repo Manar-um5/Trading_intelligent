@@ -1,0 +1,16 @@
+# Environnements Python
+.venv/
+.venv_d03/
+venv/
+.env
+
+# Fichiers macOS
+.DS_Store
+
+# Cache Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Fichiers temporaires
+*.log
